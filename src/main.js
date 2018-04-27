@@ -15,10 +15,13 @@ $(document).ready(function() {
     let list = api.call(doctor, symptom);
     list.then(function(response) {
       console.log(response.data);
-      for (let i=0; i<response.data.length; i++) {
-      $('.results').append(`<li><strong>${response.data[i].profile.first_name} ${response.data[i].profile.last_name}</strong> <br> Address: ${response.data[i].practices[0].visit_address.street} <br> ${response.data[i].practices[0].visit_address.city} ${response.data[i].practices[0].visit_address.state} ${response.data[i].practices[0].visit_address.zip} <br>  Phone: ${response.data[i].practices[0].phones[0].number} <br> Accepting New Patients: ${response.data[i].practices[0].accepts_new_patients} </li>`);
+      if (response.data.length === 0) {
+        $('.results').text(`Your query found no results.`)
+      } else {
+        for (let i=0; i<response.data.length; i++) {
+        $('.results').append(`<li><strong>${response.data[i].profile.first_name} ${response.data[i].profile.last_name}</strong> <br> <strong>Address:</strong><br> ${response.data[i].practices[0].visit_address.street} <br> ${response.data[i].practices[0].visit_address.city} ${response.data[i].practices[0].visit_address.state} ${response.data[i].practices[0].visit_address.zip} <br> <strong> Phone:</strong><br> ${response.data[i].practices[0].phones[0].number} <br> <strong>Accepting New Patients:</strong> ${response.data[i].practices[0].accepts_new_patients} </li>`);
+        }
       }
-
     }).fail(function(error) {
       $('.showErrors').text(`There was an error processing your request: ${error.responseText}. Please try again.`);
     });
