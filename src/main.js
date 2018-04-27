@@ -18,8 +18,6 @@ $(document).ready(function() {
         $('.results').text(`There were no results matching your search query.`)
       } else {
         for (let i=0; i<response.data.length; i++) {
-        let first = response.data[i].profile.first_name;
-        let last = response.data[i].profile.last_name;
         let website;
         if (response.data[i].practices[0].website !== undefined) {
           website = response.data[i].practices[0].website;
@@ -33,8 +31,8 @@ $(document).ready(function() {
           patients = "No";
         }
         $('.results').append(`<li><strong>
-          ${first}
-          ${last}</strong><br>
+          ${response.data[i].profile.first_name}
+          ${response.data[i].profile.last_name}</strong><br>
           <strong>Address:</strong><br>
           ${response.data[i].practices[0].visit_address.street}<br>
           ${response.data[i].practices[0].visit_address.city}
