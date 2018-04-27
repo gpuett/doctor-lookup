@@ -14,7 +14,6 @@ $(document).ready(function() {
     let api = new API();
     let list = api.call(doctor, symptom);
     list.then(function(response) {
-      console.log(response.data);
       if (response.data.length === 0) {
         $('.results').text(`Your query found no results.`)
       } else {
