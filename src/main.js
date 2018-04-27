@@ -25,7 +25,13 @@ $(document).ready(function() {
           website = response.data[i].practices[0].website;
         } else {
           website = "None";
-        } 
+        }
+        let patients;
+        if (response.data[i].practices[0].accepts_new_patients === true) {
+          patients = "Yes";
+        } else {
+          patients = "No";
+        }
         $('.results').append(`<li><strong>
           ${first}
           ${last}</strong><br>
@@ -38,8 +44,8 @@ $(document).ready(function() {
           ${response.data[i].practices[0].phones[0].number}<br>
           <strong>Website:</strong><br>
           ${website}<br>
-          <strong>Accepting New Patients:</strong>
-          ${response.data[i].practices[0].accepts_new_patients} </li><br>`);
+          <strong>Accepting New Patients?:</strong>
+          ${patients} </li><br>`);
         }
       }
     }).fail(function(error) {
