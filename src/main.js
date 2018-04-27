@@ -15,21 +15,29 @@ $(document).ready(function() {
     let list = api.call(doctor, symptom);
     list.then(function(response) {
       if (response.data.length === 0) {
-        $('.results').text(`Your query found no results.`)
+        $('.results').text(`There were no results matching your search query.`)
       } else {
         for (let i=0; i<response.data.length; i++) {
+        let first = response.data[i].profile.first_name;
+        let last = response.data[i].profile.last_name;
+        let website;
+        if (response.data[i].practices[0].website !== undefined) {
+          website = response.data[i].practices[0].website;
+        } else {
+          website = "None";
+        } 
         $('.results').append(`<li><strong>
-          ${response.data[i].profile.first_name}
-          ${response.data[i].profile.last_name}</strong><br>
+          ${first}
+          ${last}</strong><br>
           <strong>Address:</strong><br>
           ${response.data[i].practices[0].visit_address.street}<br>
           ${response.data[i].practices[0].visit_address.city}
           ${response.data[i].practices[0].visit_address.state}
           ${response.data[i].practices[0].visit_address.zip}<br>
-          <strong> Phone:</strong><br>
+          <strong>Phone:</strong><br>
           ${response.data[i].practices[0].phones[0].number}<br>
           <strong>Website:</strong><br>
-          ${response.data[i].practices[0].website}<br>
+          ${website}<br>
           <strong>Accepting New Patients:</strong>
           ${response.data[i].practices[0].accepts_new_patients} </li><br>`);
         }
