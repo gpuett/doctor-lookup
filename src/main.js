@@ -18,34 +18,34 @@ $(document).ready(function() {
         $('.results').text(`There were no results matching your search query.`)
       } else {
         for (let i=0; i<response.data.length; i++) {
-        let website;
-        if (response.data[i].practices[0].website !== undefined) {
-          website = response.data[i].practices[0].website;
-        } else {
-          website = "None";
+          let website;
+          if (response.data[i].practices[0].website !== undefined) {
+            website = response.data[i].practices[0].website;
+          } else {
+            website = "None";
+          }
+          let patients;
+          if (response.data[i].practices[0].accepts_new_patients === true) {
+            patients = "Yes";
+          } else {
+            patients = "No";
+          }
+          $('.results').append(`<li><strong><font size="5" color="LightSeaGreen">
+            ${response.data[i].profile.first_name}
+            ${response.data[i].profile.last_name}</font></strong><br>
+            <strong>Address:</strong><br>
+            ${response.data[i].practices[0].visit_address.street}<br>
+            ${response.data[i].practices[0].visit_address.city}
+            ${response.data[i].practices[0].visit_address.state}
+            ${response.data[i].practices[0].visit_address.zip}<br>
+            <strong>Phone:</strong><br>
+            ${response.data[i].practices[0].phones[0].number}<br>
+            <strong>Website:</strong><br>
+            ${website}<br>
+            <strong>Accepting New Patients?:</strong>
+            ${patients} </li><br>`);
+          }
         }
-        let patients;
-        if (response.data[i].practices[0].accepts_new_patients === true) {
-          patients = "Yes";
-        } else {
-          patients = "No";
-        }
-        $('.results').append(`<li><strong>
-          ${response.data[i].profile.first_name}
-          ${response.data[i].profile.last_name}</strong><br>
-          <strong>Address:</strong><br>
-          ${response.data[i].practices[0].visit_address.street}<br>
-          ${response.data[i].practices[0].visit_address.city}
-          ${response.data[i].practices[0].visit_address.state}
-          ${response.data[i].practices[0].visit_address.zip}<br>
-          <strong>Phone:</strong><br>
-          ${response.data[i].practices[0].phones[0].number}<br>
-          <strong>Website:</strong><br>
-          ${website}<br>
-          <strong>Accepting New Patients?:</strong>
-          ${patients} </li><br>`);
-        }
-      }
     }).fail(function(error) {
       $('.showErrors').text(`There was an error processing your request: ${error.responseText}. Please try again.`);
     });
