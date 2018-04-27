@@ -16,7 +16,7 @@ $(document).ready(function() {
     list.then(function(response) {
       console.log(response.data);
       for (let i=0; i<response.data.length; i++) {
-      $('.results').append(`<li><strong>${response.data[i].profile.first_name} ${response.data[i].profile.last_name}</strong> <br> Address: ${response.data[i].practices[0].visit_address.street} <br> Phone: ${response.data[i].practices[0].phones[0].number} </li>`);
+      $('.results').append(`<li><strong>${response.data[i].profile.first_name} ${response.data[i].profile.last_name}</strong> <br> Address: ${response.data[i].practices[0].visit_address.street} <br> Phone: ${response.data[i].practices[0].phones[0].number} <br> Accepting New Patients: ${response.data[i].practices[0].accepts_new_patients} </li>`);
       }
 
     }).fail(function(error) {
