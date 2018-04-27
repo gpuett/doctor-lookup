@@ -14,7 +14,10 @@ $(document).ready(function() {
     let api = new API();
     let list = api.call(doctor, symptom);
     list.then(function(response) {
-      $('.results').text(`${response.data.practices.profile.slug}`);
+      // for (let i=0; i<response.length; i++) {
+      $('.results').append(`<li>${response.data[0].profile.first_name} ${response.data[0].profile.last_name}</li>`);
+      // }
+
     }).fail(function(error) {
       $('.showErrors').text(`There was an error processing your request: ${error.responseText}. Please try again.`);
     });
